@@ -1,8 +1,8 @@
-{{define "/chat/createcom.shtml"}}
+{{define "/chat/createcom.html"}}
 <!DOCTYPE html>
 <html>
 <head>
-{{template "/chat/head.shtml"}}
+{{template "/chat/head.html"}}
     <style>
         .area {
             margin: 20px auto 0px auto;
@@ -131,7 +131,7 @@
                         post("contact/createcommunity",this.com,function(res){
                             if(res.code==0){
                                 mui.toast("创建成功");
-                                url="/chat/index.shtml"
+                                url="/chat/index.html"
                                 location.href=url
                             }else{
                                 mui.toast(res.msg);

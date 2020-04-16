@@ -1,4 +1,4 @@
-{{define "/chat/foot.shtml"}}
+{{define "/chat/foot.html"}}
 <script>
 
     function upload(dom){
@@ -17,6 +17,9 @@
     }
     function userToken(){
         return localStorage.getItem('token')
+    }
+    function userId(){
+        return localStorage.getItem('id')
     }
     var app=new Vue(
             {
@@ -389,6 +392,25 @@
                             }
                         })
                     },
+                    //查看用戶id
+                    showid:function(){
+                        var that = this;
+                        //prompt
+                        mui.prompt(userId(),'','用戶ID',['取消','确认'],function (e) {
+                            // if (e.index == 1) {
+                            //     if (isNaN(e.value) || e.value <= 0) {
+                            //         mui.toast('格式错误');
+                            //     }else{
+                            //         //mui.toast(e.value);
+                            //         that._addfriend(e.value)
+                            //     }
+                            // }else{
+                            //     //mui.toast('您取消了入库');
+                            // }
+                        },'div');
+                        document.querySelector('.mui-popup-input input').type = 'number';
+                    },
+
                     joincomunity:function(){
                         var that = this;
                         mui.prompt('','请输入群号','加群',['取消','确认'],function (e) {
@@ -406,9 +428,9 @@
                         document.querySelector('.mui-popup-input input').type = 'number';
                     },
                     quit:function () {
-                        sessionStorage.removeItem("userid")
-                        sessionStorage.removeItem("userinfo")
-                        location.href="login.shtml"
+                        localStorage.removeItem("id")
+                        localStorage.removeItem("token")
+                        location.href="/user/login.html"
                     }
 
 

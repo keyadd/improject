@@ -1,5 +1,5 @@
 
-{{define "/user/register.shtml"}}
+{{define "/user/register.html"}}
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +29,7 @@
     </form>
     <div class="mui-content-padded">
         <button @click="login"  type="button"  class="mui-btn mui-btn-block mui-btn-primary">註冊</button>
-        <div class="link-area"><a id='reg' href="login.shtml">登陸账号</a> <span class="spliter">|</span> <a  id='forgetPassword'>忘记密码</a>
+        <div class="link-area"><a id='reg' href="login.html">登陸账号</a> <span class="spliter">|</span> <a  id='forgetPassword'>忘记密码</a>
         </div>
     </div>
     <div class="mui-content-padded oauth-area">
@@ -61,7 +61,7 @@
                     if(res.code!=0){
                         mui.toast(res.msg)
                     }else{
-                        //location.replace("//127.0.0.1/demo/index.shtml")
+                        //location.replace("//127.0.0.1/demo/index.html")
                         mui.toast("註冊成功")
                     }
                 })

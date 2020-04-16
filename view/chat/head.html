@@ -1,4 +1,4 @@
-{{define "/chat/head.shtml"}}
+{{define "/chat/head.html"}}
 <script>
     function userId(id){
         if(typeof  id =="undefined"){
@@ -27,7 +27,7 @@
     var url = location.href;
     var isOpen = url.indexOf("/login")>-1 || url.indexOf("/register")>-1
     if (!userId() && !isOpen){
-      // location.href = "login.shtml";
+      // location.href = "login.html";
     }
 
 </script>
