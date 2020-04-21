@@ -1,9 +1,9 @@
 package service
 
 import (
+	"app/v1/im/model"
 	"errors"
 	"fmt"
-	"gitapp.com/v1/im/model"
 	"github.com/go-xorm/xorm"
 	"log"
 )

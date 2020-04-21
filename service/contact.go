@@ -3,7 +3,7 @@ package service
 import (
 	"errors"
 	"fmt"
-	"gitapp.com/v1/im/model"
+	"app/v1/im/model"
 	"time"
 )
 

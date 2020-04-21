@@ -1,8 +1,7 @@
 package main
 
-import "C"
 import (
-	"gitapp.com/v1/im/controller"
+	"app/v1/im/controller"
 	_ "github.com/go-sql-driver/mysql"
 	"html/template"
 	"log"
@@ -45,6 +44,6 @@ func main() {
 	http.Handle("/public/", http.FileServer(http.Dir(".")))
 	http.Handle("/asset/",http.FileServer(http.Dir(".")))
 	RegisterView()
-	http.ListenAndServe("127.0.0.1:8089", nil)
+	http.ListenAndServe("0.0.0.0:8089", nil)
 
 }

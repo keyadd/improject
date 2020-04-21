@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"gitapp.com/v1/im/model"
-	"gitapp.com/v1/im/service"
-	"gitapp.com/v1/im/util"
+	"app/v1/im/model"
+	"app/v1/im/service"
+	"app/v1/im/util"
 	"fmt"
 	"math/rand"
 	"net/http"

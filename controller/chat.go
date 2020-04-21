@@ -6,6 +6,7 @@ import (
 	"github.com/gorilla/websocket"
 	"gopkg.in/fatih/set.v0"
 	"log"
+	"net"
 	"net/http"
 	"strconv"
 	"sync"
@@ -22,7 +23,7 @@ var rwlocker sync.RWMutex
 
 type Message struct {
 	Id      int64  `json:"id,omitempty" form:"id"` //消息ID
-	Userid  int64  `json:"userid,omitempty" form:"userid"` //谁发的
+	Userid  string  `json:"userid,omitempty" form:"userid"` //谁发的
 	Cmd     int    `json:"cmd,omitempty" form:"cmd"` //群聊还是私聊
 	Dstid   int64  `json:"dstid,omitempty" form:"dstid"`//对端用户ID/群ID
 	Media   int    `json:"media,omitempty" form:"media"` //消息按照什么样式展示
@@ -47,6 +48,7 @@ var rwlockmap sync.RWMutex
 func Chat(w http.ResponseWriter, r *http.Request)  {
 	query := r.URL.Query()
 	id := query.Get("id")
+	//fmt.Println(id)
 	token := query.Get("token")
 	userId, _ := strconv.ParseInt(id, 10, 64)
 	isvalida := checkToken(userId, token)
@@ -121,17 +123,88 @@ func recvproc(node *Node)  {
 			log.Println(err.Error())
 			return
 		}
-		dispatch(data)
+		//dispatch(data)
+		broadMsg(data)
 		fmt.Printf("recv<=%s",data)
 
 	}
 	
 }
+//廣播數據到局域網
+var udpsendchan chan []byte = make(chan []byte,1024)
+
+
+func broadMsg(data []byte)  {
+	udpsendchan<-data
+}
+func udpsendproc()  {
+	log.Println("start udpsendproc")
+	con, err := net.DialUDP("udp", nil,
+		&net.UDPAddr{
+			IP:   net.IPv4(192, 168, 1, 255),
+			Port: 4000,
+		})
+	defer con.Close()
+
+	if err!=nil {
+		log.Println(err.Error())
+		return
+	}
+	//con.Write()
+	for  {
+		select {
+		case data :=<-udpsendchan:
+			_, err := con.Write(data)
+			if err!=nil {
+				log.Println(err.Error())
+				return
+			}
+
+		}
+	}
+
+}
+
+//upd 接收
+func udprecvproc()  {
+	log.Println("start updrecvproc")
+	con, err := net.ListenUDP("udp", &net.UDPAddr{
+		IP:   net.IPv4zero,
+		Port: 4000,
+	})
+
+	defer con.Close()
+
+	if err!=nil {
+		log.Println(err.Error())
+		return
+	}
+	for  {
+		var buf [1024]byte
+		n, err := con.Read(buf[0:])
+		if err!=nil {
+			log.Println(err.Error())
+			return
+		}
+		dispatch(buf[0:n])
+
+	}
+
+}
+func init()  {
+	go udpsendproc()
+	go udprecvproc()
+
+}
+
+
+
+
 func dispatch(data []byte)  {
 	msg:= Message{}
 	err := json.Unmarshal(data, &msg)
 	if err!=nil {
-		log.Println(err.Error())
+		log.Println(err.Error(),"ssss")
 		return
 	}
 	switch msg.Cmd {

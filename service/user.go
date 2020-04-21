@@ -3,8 +3,8 @@ package service
 import (
 	"errors"
 	"fmt"
-	"gitapp.com/v1/im/model"
-	"gitapp.com/v1/im/util"
+	"app/v1/im/model"
+	"app/v1/im/util"
 	_ "github.com/go-sql-driver/mysql"
 	"math/rand"
 	"time"

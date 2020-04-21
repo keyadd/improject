@@ -2,7 +2,7 @@ package controller
 
 import (
 	"fmt"
-	"gitapp.com/v1/im/util"
+	"app/v1/im/util"
 	"golang.org/x/exp/rand"
 	"io"
 	"net/http"
