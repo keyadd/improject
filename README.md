@@ -3,7 +3,7 @@
 基於Golang一個簡的分布式 Im 聊天系統 
 
 ####點對點聊天
-![avatar](./public/Screen Shot 2020-04-20 at 7.19.32 PM.png)
+![avatar](https://github.com/keyadd/improject/blob/master/public/Screen%20Shot%202020-04-20%20at%207.19.32%20PM.png)
 
 ####群聊
 ![avatar](./public/Screen Shot 2020-04-20 at 7.20.18 PM.png)
