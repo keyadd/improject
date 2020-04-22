@@ -2,6 +2,14 @@
 
 基於Golang一個簡的分布式 Im 聊天系統 
 
+
+测试账号 密码
+
+13877472264    密码123456
+13877472263    密码123456
+
+
+
 ####點對點聊天
 ![avatar](https://github.com/keyadd/improject/blob/master/public/Screen%20Shot%202020-04-20%20at%207.19.32%20PM.png)
 
